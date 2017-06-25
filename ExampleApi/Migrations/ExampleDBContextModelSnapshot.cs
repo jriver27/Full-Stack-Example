@@ -7,11 +7,10 @@ using ExampleApi.Models;
 
 namespace ExampleApi.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
-    [Migration("20170625210905_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(ExampleDBContext))]
+    partial class ExampleDBContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
