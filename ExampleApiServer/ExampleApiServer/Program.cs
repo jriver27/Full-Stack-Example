@@ -12,7 +12,10 @@ namespace ExampleApiServer
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
+			// DB Connection String 
+			// Data Source=(localdb)\ProjectsV13;Initial Catalog=ExampleDatabase;Integrated Security=True;Pooling=False;Connect Timeout=30
+
+			var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
