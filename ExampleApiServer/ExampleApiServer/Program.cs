@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ExampleApi
+namespace ExampleApiServer
 {
     public class Program
     {
@@ -17,6 +17,7 @@ namespace ExampleApi
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseApplicationInsights()
                 .Build();
 
             host.Run();

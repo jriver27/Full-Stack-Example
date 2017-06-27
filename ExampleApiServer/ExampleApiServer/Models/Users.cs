@@ -1,10 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ExampleApi.Models
+namespace ExampleApiServer.Models
 {
-    public class Users
+	public class Users
     {
         [Key]
         public int UserId { get; set; }
