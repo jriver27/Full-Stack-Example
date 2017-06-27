@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="e69b6525-a4bb-4442-a79e-606ed521760f" ChangeDateTime="06/27/2017 20:24:02">
+    <Property Name="ElementName" Value="[dbo].[Users].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1e967ca6-f165-47f4-8307-07b0cf54aa00" ChangeDateTime="06/27/2017 20:25:36">
+    <Property Name="ElementName" Value="[dbo].[Samples].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Samples]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SampleId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d906281a-0c10-4efd-b98f-ebbfe560623b" ChangeDateTime="06/27/2017 20:26:59">
+    <Property Name="ElementName" Value="[dbo].[Statuses].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Statuses]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusId" />
+  </Operation>
+</Operations>
