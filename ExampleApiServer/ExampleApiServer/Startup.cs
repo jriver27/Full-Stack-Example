@@ -31,7 +31,10 @@ namespace ExampleApiServer
         {
 			// Add framework services.
 			services.AddMvc();
-        }
+
+			var connection = @"Server=(localdb)\ProjectsV13;Initial Catalog=ExampleDatabase;Integrated Security=True;Pooling=False;Connect Timeout=30";
+			services.AddDbContext<ExampleDatabaseContext>(options => options.UseSqlServer(connection));
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -39,7 +42,22 @@ namespace ExampleApiServer
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
-        }
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
+
+			app.UseStaticFiles();
+
+			app.UseMvc( routes => {
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
+		}
     }
 }
