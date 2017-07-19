@@ -1,19 +1,19 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using ExampleApiServer.Models;
 
 namespace ExampleApiServer.Models
 {
     public partial class ExampleDatabaseContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+		public ExampleDatabaseContext(DbContextOptions<ExampleDatabaseContext> options) : base(options)
+		{ }
 
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\ProjectsV13;Initial Catalog=ExampleDatabase;Integrated Security=True;Pooling=False;Connect Timeout=30");
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
+
+		public DbSet<ExampleApiServer.Models.Samples> Samples { get; set; }
     }
 }
