@@ -22,9 +22,21 @@ namespace ExampleApiServer.Controllers
 
 		// GET: api/Samples
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IActionResult> Get()
 		{
-			return new string[] { "blue", "green" };
+			try
+			{
+				var Samples = db.Query("select * from Samples " +
+					"right join Users on Users.UserId = Samples.CreatedBy " + 
+					"right join Statuses on Statuses.StatusId = Samples.StatusId");
+
+				return Json(Samples);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				return NotFound();
+			}
         }
 
 		// GET: api/Samples/3
@@ -50,7 +62,7 @@ namespace ExampleApiServer.Controllers
 			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
-				return View(null);
+				return NotFound();
 			}
 		}
 
