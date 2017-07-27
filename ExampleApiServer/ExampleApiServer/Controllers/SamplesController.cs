@@ -5,17 +5,19 @@ using ExampleApiServer.Models;
 using System.Collections.Generic;
 using System;
 using ExampleApiServer.Services;
+using Dapper;
+using System.Data;
 
 namespace ExampleApiServer.Controllers
 {
 	[Route("api/[controller]")]
 	public class SamplesController : Controller
     {
-		private readonly IDBConnectionService _dbConnection;
+		private readonly IDbConnection db;
 
 		public SamplesController(IDBConnectionService dbConnection)
 		{
-			_dbConnection = dbConnection;
+			db = dbConnection.GetDB();
 		}
 
 		// GET: api/Samples
@@ -35,8 +37,15 @@ namespace ExampleApiServer.Controllers
 				{
 					return NotFound();
 				}
-				
-				return Json(new { });
+
+				List<Samples> users = (List<Samples>)db.Query<Samples>($"SELECT * FROM SAMPLES WHERE SAMPLEID = {id}");
+
+				if (users.Count == 0)
+				{
+					return NotFound();
+				}
+
+				return Json(users.First());
 			}
 			catch (Exception e)
 			{
@@ -56,7 +65,6 @@ namespace ExampleApiServer.Controllers
 		[HttpPost("create/{color}/{count}")]
 		public string Create(string color, int count)
 		{
-			Console.WriteLine(_dbConnection.SayHello());
 			return "you hit create with the ${color}, and ${type}";
 		}
 
