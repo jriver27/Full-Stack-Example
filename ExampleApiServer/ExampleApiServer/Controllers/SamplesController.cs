@@ -66,7 +66,6 @@ namespace ExampleApiServer.Controllers
 			}
 		}
 
-		// Here is an example of hitting a specific route.
 		[HttpGet("byStatus/{statusId}")]
 		public async Task<IActionResult> ByStatus(int statusId)
 		{
@@ -89,29 +88,53 @@ namespace ExampleApiServer.Controllers
 				return NotFound();
 			}
 		}
-		
-		// GET: Samples/Create
-		[HttpPost("create/{color}/{count}")]
-		public string Create(string color, int count)
+
+		[HttpGet("byUserName/{userName}")]
+		public async Task<IActionResult> ByUserName(string userName)
 		{
-			return "you hit create with the ${color}, and ${type}";
+			try
+			{
+				List<Samples> samples = (List<Samples>)db.Query<Samples>
+					("SELECT * FROM Samples " +
+						"Left JOIN Users ON Users.UserId = Samples.CreatedBy " +
+						$"WHERE Users.FirstName LIKE '%{userName}%'");
+
+				if (samples.Count == 0)
+				{
+					return NotFound();
+				}
+
+				return Json(samples);
+
+			}
+			catch (Exception e)
+			{
+				return NotFound();
+			}
 		}
+
 
 		//      // POST: Samples/Create
 		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		//      // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		//      [HttpPost]
-		//      [ValidateAntiForgeryToken]
-		//      public async Task<IActionResult> Create([Bind("SampleId,StatusId,Barcode,CreatedAt,CreatedBy")] Samples samples)
-		//      {
-		//          if (ModelState.IsValid)
-		//          {
-		//              _context.Add(samples);
-		//              await _context.SaveChangesAsync();
-		//              return RedirectToAction("Index");
-		//          }
-		//          return View(samples);
-		//      }
+		[HttpPost("create")]
+		public async Task<IActionResult> Create([Bind("SampleId, StatusId, Barcode, CreatedAt, CreatedBy")] Samples samples)
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					var result = db.Execute(@"INSERT INTO [dbo].[Samples]([SampleId], [StatusId], [Barcode], [CreatedAt], [CreatedBy])
+						VALUES(@SampleId, @StatusId, @Barcode, @CreatedAt, @CreatedBy)", samples);
+
+					return Json(result);
+				}
+				return NotFound();
+			} catch(Exception e)
+			{
+				return NotFound();
+			}
+		}
 
 		//      // GET: Samples/Edit/5
 		//      public async Task<IActionResult> Edit(int? id)
