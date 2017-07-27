@@ -4,14 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 using ExampleApiServer.Models;
 using System.Collections.Generic;
 using System;
+using ExampleApiServer.Services;
 
 namespace ExampleApiServer.Controllers
 {
 	[Route("api/[controller]")]
 	public class SamplesController : Controller
     {
+		private readonly IDBConnectionService _dbConnection;
 
-        // GET: api/Samples
+		public SamplesController(IDBConnectionService dbConnection)
+		{
+			_dbConnection = dbConnection;
+		}
+
+		// GET: api/Samples
 		[HttpGet]
 		public IEnumerable<string> Get()
 		{
@@ -49,6 +56,7 @@ namespace ExampleApiServer.Controllers
 		[HttpPost("create/{color}/{count}")]
 		public string Create(string color, int count)
 		{
+			Console.WriteLine(_dbConnection.SayHello());
 			return "you hit create with the ${color}, and ${type}";
 		}
 

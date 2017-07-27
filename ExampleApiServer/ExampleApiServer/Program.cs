@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Autofac.Extensions.DependencyInjection;
 
 namespace ExampleApiServer
 {
@@ -17,7 +18,8 @@ namespace ExampleApiServer
 
 			var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
+				.ConfigureServices(services => services.AddAutofac())
+				.UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()

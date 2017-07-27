@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ExampleApiServer.Models;
+using Autofac;
 
 namespace ExampleApiServer
 {
-    public class Startup
+	public class Startup
     {
-        public Startup(IHostingEnvironment env)
+
+		public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -21,24 +18,41 @@ namespace ExampleApiServer
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }
+}
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-			// Add framework services.
+		// ConfigureServices is where you register dependencies. This gets
+		// called by the runtime before the ConfigureContainer method, below.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			// Add services to the collection. Don't build or return
+			// any IServiceProvider or the ConfigureContainer method
+			// won't get called.
 			services.AddMvc();
-
-			var connection = @"Server=(localdb)\ProjectsV13;Initial Catalog=ExampleDatabase;Integrated Security=True;Pooling=False;Connect Timeout=30";
 		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+		// ConfigureContainer is where you can register things directly
+		// with Autofac. This runs after ConfigureServices so the things
+		// here will override registrations made in ConfigureServices.
+		// Don't build the container; that gets done for you. If you
+		// need a reference to the container, you need to use the
+		// "Without ConfigureContainer" mechanism shown later.
+		public void ConfigureContainer(ContainerBuilder builder)
+		{
+			builder.RegisterModule(new ServiceModule());
+		}
+		
+		// Configure is where you add middleware. This is called after
+		// ConfigureContainer. You can use IApplicationBuilder.ApplicationServices
+		// here if you need to resolve things from the container.
+		public void Configure(
+		  IApplicationBuilder app,
+		  IHostingEnvironment env,
+		  ILoggerFactory loggerFactory)
+		{
+			loggerFactory.AddConsole(this.Configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
 
 			if (env.IsDevelopment())
 			{
@@ -51,7 +65,7 @@ namespace ExampleApiServer
 
 			app.UseStaticFiles();
 
-			app.UseMvc( routes => {
+			app.UseMvc(routes => {
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
