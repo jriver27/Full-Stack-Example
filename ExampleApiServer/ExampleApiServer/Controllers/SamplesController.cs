@@ -1,28 +1,42 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ExampleApiServer.Models;
 using System.Collections.Generic;
 using System;
+using ExampleApiServer.Services;
+using Dapper;
+using System.Data;
 
 namespace ExampleApiServer.Controllers
 {
 	[Route("api/[controller]")]
 	public class SamplesController : Controller
     {
-        private readonly ExampleDatabaseContext _context;
+		private readonly IDbConnection db;
 
-        public SamplesController(ExampleDatabaseContext context)
-        {
-            _context = context;    
-        }
-
-        // GET: api/Samples
-		[HttpGet]
-		public IEnumerable<string> Get()
+		public SamplesController(IDBConnectionService dbConnection)
 		{
-			return new string[] { "blue", "green" };
+			db = dbConnection.GetDB();
+		}
+
+		// GET: api/Samples
+		[HttpGet]
+		public async Task<IActionResult> Get()
+		{
+			try
+			{
+				var Samples = db.Query("select * from Samples " +
+					"right join Users on Users.UserId = Samples.CreatedBy " + 
+					"right join Statuses on Statuses.StatusId = Samples.StatusId");
+
+				return Json(Samples);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				return NotFound();
+			}
         }
 
 		// GET: api/Samples/3
@@ -36,38 +50,35 @@ namespace ExampleApiServer.Controllers
 					return NotFound();
 				}
 
-				var samples = await _context.Samples
-					.SingleOrDefaultAsync(m => m.SampleId == id);
-				if (samples == null)
+				List<Samples> users = (List<Samples>)db.Query<Samples>($"SELECT * FROM SAMPLES WHERE SAMPLEID = {id}");
+
+				if (users.Count == 0)
 				{
 					return NotFound();
 				}
 
-				return Json(samples);
-
+				return Json(users.First());
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
-				return View(null);
+				return NotFound();
 			}
 		}
 
-		[HttpGet("/details")]
+		// Here is an example of hitting a specific route.
+		[HttpGet("details")]
 		public IEnumerable<string> Details()
 		{
-
-			return new string[] { "blue", "green" };
+			return new string[] { "these are the details","blue", "green" };
 		}
-
-
-
-		//// GET: Samples/Create
-		//[HttpGet]
-		//public string Create()
-		//      {
-		//          return "you hit create";
-		//      }
+		
+		// GET: Samples/Create
+		[HttpPost("create/{color}/{count}")]
+		public string Create(string color, int count)
+		{
+			return "you hit create with the ${color}, and ${type}";
+		}
 
 		//      // POST: Samples/Create
 		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
