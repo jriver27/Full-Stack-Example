@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ExampleApiServer.Models;
 using System.Collections.Generic;
 using System;
@@ -11,12 +10,6 @@ namespace ExampleApiServer.Controllers
 	[Route("api/[controller]")]
 	public class SamplesController : Controller
     {
-        private readonly ExampleDatabaseContext _context;
-
-        public SamplesController(ExampleDatabaseContext context)
-        {
-            _context = context;    
-        }
 
         // GET: api/Samples
 		[HttpGet]
@@ -35,16 +28,8 @@ namespace ExampleApiServer.Controllers
 				{
 					return NotFound();
 				}
-
-				var samples = await _context.Samples
-					.SingleOrDefaultAsync(m => m.SampleId == id);
-				if (samples == null)
-				{
-					return NotFound();
-				}
-
-				return Json(samples);
-
+				
+				return Json(new { });
 			}
 			catch (Exception e)
 			{
@@ -53,21 +38,19 @@ namespace ExampleApiServer.Controllers
 			}
 		}
 
-		[HttpGet("/details")]
+		// Here is an example of hitting a specific route.
+		[HttpGet("details")]
 		public IEnumerable<string> Details()
 		{
-
-			return new string[] { "blue", "green" };
+			return new string[] { "these are the details","blue", "green" };
 		}
-
-
-
-		//// GET: Samples/Create
-		//[HttpGet]
-		//public string Create()
-		//      {
-		//          return "you hit create";
-		//      }
+		
+		// GET: Samples/Create
+		[HttpPost("create/{color}/{count}")]
+		public string Create(string color, int count)
+		{
+			return "you hit create with the ${color}, and ${type}";
+		}
 
 		//      // POST: Samples/Create
 		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

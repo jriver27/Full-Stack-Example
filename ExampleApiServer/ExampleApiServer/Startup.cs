@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ExampleApiServer.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ExampleApiServer
 {
@@ -33,7 +32,6 @@ namespace ExampleApiServer
 			services.AddMvc();
 
 			var connection = @"Server=(localdb)\ProjectsV13;Initial Catalog=ExampleDatabase;Integrated Security=True;Pooling=False;Connect Timeout=30";
-			services.AddDbContext<ExampleDatabaseContext>(options => options.UseSqlServer(connection));
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
