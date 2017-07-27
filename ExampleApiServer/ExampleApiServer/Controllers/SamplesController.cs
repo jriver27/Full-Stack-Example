@@ -50,14 +50,14 @@ namespace ExampleApiServer.Controllers
 					return NotFound();
 				}
 
-				List<Samples> users = (List<Samples>)db.Query<Samples>($"SELECT * FROM SAMPLES WHERE SAMPLEID = {id}");
+				List<Samples> samples = (List<Samples>)db.Query<Samples>($"SELECT * FROM SAMPLES WHERE SAMPLEID = {id}");
 
-				if (users.Count == 0)
+				if (samples.Count == 0)
 				{
 					return NotFound();
 				}
 
-				return Json(users.First());
+				return Json(samples.First());
 			}
 			catch (Exception e)
 			{
@@ -67,10 +67,27 @@ namespace ExampleApiServer.Controllers
 		}
 
 		// Here is an example of hitting a specific route.
-		[HttpGet("details")]
-		public IEnumerable<string> Details()
+		[HttpGet("byStatus/{statusId}")]
+		public async Task<IActionResult> ByStatus(int statusId)
 		{
-			return new string[] { "these are the details","blue", "green" };
+			try
+			{
+				List<Samples> samples = (List<Samples>)db.Query<Samples>
+					("SELECT * FROM Statuses " +
+					"RIGHT JOIN SAMPLES ON SAMPLES.STATUSID = STATUSES.STATUSID " +
+					$"WHERE STATUSES.STATUSID = {statusId}");
+
+				if (samples.Count == 0)
+				{
+					return NotFound();
+				}
+
+				return Json(samples);
+
+			} catch(Exception e)
+			{
+				return NotFound();
+			}
 		}
 		
 		// GET: Samples/Create
