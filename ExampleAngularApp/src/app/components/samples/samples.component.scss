@@ -6,6 +6,8 @@
     width: 15em;
     max-height: 30em;
     overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
 
     .text {
         position: relative;
@@ -47,6 +49,7 @@
         height: 1.8em;
         margin-right: .8em;
         border-radius: 4px 0 0 4px;
+        width: 2em;
     }
 }
 
