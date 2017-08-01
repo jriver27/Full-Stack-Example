@@ -13,5 +13,8 @@
      <span class="badge">{{sample.SampleId}}</span> {{sample.Barcode}}
   </li>
 </ul>
+<div *ngIf="samples">
+  <span>Current number of samples: {{samples.length}}</span>
+</div>
 
 <sample-detail [sample]="selectedSample"></sample-detail>
