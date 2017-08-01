@@ -7,6 +7,7 @@ using System;
 using ExampleApiServer.Services;
 using Dapper;
 using System.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace ExampleApiServer.Controllers
 {

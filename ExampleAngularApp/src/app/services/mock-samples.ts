@@ -1,14 +1,13 @@
 import { Sample } from '../models/sample';
 
 export const SAMPLES: Sample[] = [
-  { sampleId: 11 },
-  { sampleId: 12 },
-  { sampleId: 13 },
-  { sampleId: 14 },
-  { sampleId: 15 },
-  { sampleId: 16 },
-  { sampleId: 17 },
-  { sampleId: 18 },
-  { sampleId: 19 },
-  { sampleId: 20 }
-];
+  { SampleId: 11 },
+  { SampleId: 12 },
+  { SampleId: 13 },
+  { SampleId: 14 },
+  { SampleId: 15 },
+  { SampleId: 16 },
+  { SampleId: 17 },
+  { SampleId: 18 },
+  { SampleId: 19 },
+  { SampleId: 20 }];

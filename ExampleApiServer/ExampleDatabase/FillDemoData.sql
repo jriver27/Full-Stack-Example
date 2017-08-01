@@ -1,10 +1,36 @@
-﻿INSERT INTO dbo.Statuses(StatusId, Status)
+﻿IF NOT EXISTS 
+(
+    SELECT * FROM sys.tables t 
+    JOIN sys.schemas s 
+    ON (t.schema_id = s.schema_id)
+    WHERE s.name = 'dbo' and t.name = 'Statuses'
+)
+CREATE TABLE [dbo].[Statuses]
+(
+	[StatusId] INT NOT NULL PRIMARY KEY, 
+    [Status] VARCHAR(50) NULL
+)
+
+INSERT INTO dbo.Statuses(StatusId, Status)
  VALUES (0, N'Received'),
  (1, N'Accessioning'),
  (2, N'In Lab'),
  (3, N'Report Generation');
 
 
+IF NOT EXISTS 
+(
+    SELECT * FROM sys.tables t 
+    JOIN sys.schemas s 
+    ON (t.schema_id = s.schema_id)
+    WHERE s.name = 'dbo' and t.name = 'Users'
+)
+CREATE TABLE [dbo].[Users]
+(
+	[UserId] INT NOT NULL PRIMARY KEY, 
+    [FirstName] VARCHAR(15) NULL, 
+    [LastName] VARCHAR(15) NULL
+)
 INSERT INTO dbo.Users (UserId, FirstName, LastName)
 VALUES (0, N'Kristine', N'Butler'),
 	(1,'Alfred', N'McKenzie'),
@@ -16,6 +42,22 @@ VALUES (0, N'Kristine', N'Butler'),
     (7,N'Kim', N'Mullins'),
     (8,N'Blanche', N'Mack'),
     (9,N'Dwayne', N'Pena');
+
+IF NOT EXISTS 
+(
+    SELECT * FROM sys.tables t 
+    JOIN sys.schemas s 
+    ON (t.schema_id = s.schema_id)
+    WHERE s.name = 'dbo' and t.name = 'Users'
+)
+CREATE TABLE [dbo].[Samples]
+(
+	[SampleId] INT NOT NULL PRIMARY KEY, 
+    [Barcode] VARCHAR(50) NULL, 
+    [CreatedAt] DATE NULL, 
+    [CreatedBy] INT FOREIGN KEY REFERENCES Users(UserId),
+    [StatusId] INT FOREIGN KEY REFERENCES Statuses(StatusId)
+)
 
 INSERT INTO dbo.Samples (SampleId, Barcode, CreatedAt, CreatedBy, StatusId)
 VALUES (1, N'129076', N'2015-01-02', 6, 3),

@@ -21,7 +21,9 @@ export class SamplesComponent implements OnInit {
   }
 
   getSamples(): void {
-    this.sampleService.getSamples().then(samples => this.samples = samples);
+    this.sampleService
+      .getSamples()
+      .then(samples => this.samples = samples);
   }
 
   onSelect(sample: Sample): void {

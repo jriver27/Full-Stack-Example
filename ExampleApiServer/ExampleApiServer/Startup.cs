@@ -30,6 +30,11 @@ namespace ExampleApiServer
 			// any IServiceProvider or the ConfigureContainer method
 			// won't get called.
 			services.AddMvc();
+			services.AddCors(options =>
+			{
+				options.AddPolicy("AllowSpecificOrigin",
+					builder => builder.WithOrigins("http://localhost:4200"));
+			});
 		}
 
 		// ConfigureContainer is where you can register things directly
@@ -65,11 +70,14 @@ namespace ExampleApiServer
 
 			app.UseStaticFiles();
 
+			app.UseCors("AllowSpecificOrigin");
+
 			app.UseMvc(routes => {
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
 		}
     }
 }
