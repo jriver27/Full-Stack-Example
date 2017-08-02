@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Sample } from '../../models/sample';
 import { SampleService } from '../../services/sample.service';
-import { OnInit } from '@angular/core';
+import { OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'my-samples',
   moduleId: module.id,
   templateUrl: './samples.component.html',
   styleUrls: ['./samples.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: []
 })
 export class SamplesComponent implements OnInit {

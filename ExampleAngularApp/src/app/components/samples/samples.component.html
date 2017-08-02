@@ -11,9 +11,10 @@
   [class.selected]="sample === selectedSample"
   (click)="onSelect(sample)">
   <div class="sample-list-container">
-      <div class="badge">{{sample.SampleId}}</div>
-      <div>{{sample.FirstName}} {{sample.LastName}}</div>
-      <div>{{sample.Status}}</div> 
+      <div class="badge left">{{sample.SampleId}}</div>
+      <div class="center">{{sample.FirstName}} {{sample.LastName}}</div>
+      <div class="right" style="padding-right: 10px;"><span>{{sample.Status}}</span></div>
+      <div class="clear"></div>
   </div>
   </li>
 </ul>
