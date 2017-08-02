@@ -1,0 +1,20 @@
+<h1>
+  {{title}}
+</h1>
+
+<div>
+  <span>This will allways be here regardless of page.</span>
+</div>
+
+<ul class="samples">
+  <li *ngFor="let sample of samples" 
+  [class.selected]="sample === selectedSample"
+  (click)="onSelect(sample)">
+     <span class="badge">{{sample.SampleId}}</span> {{sample.Barcode}}
+  </li>
+</ul>
+<div *ngIf="samples">
+  <span>Current number of samples: {{samples.length}}</span>
+</div>
+
+<sample-detail [sample]="selectedSample"></sample-detail>
