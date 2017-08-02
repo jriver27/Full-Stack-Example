@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'my-samples',
+  moduleId: module.id,
   templateUrl: './samples.component.html',
   styleUrls: ['./samples.component.scss'],
   providers: []

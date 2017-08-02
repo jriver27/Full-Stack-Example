@@ -4,4 +4,7 @@ export class Sample {
   CreatedAt: Date;
   CreatedBy: number;
   StatusId: number;
+  FirstName: string;
+  LastName: string;
+  Status: string;
 };
