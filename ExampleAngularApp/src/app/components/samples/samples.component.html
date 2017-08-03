@@ -10,7 +10,12 @@
   <li *ngFor="let sample of samples" 
   [class.selected]="sample === selectedSample"
   (click)="onSelect(sample)">
-     <span class="badge">{{sample.SampleId}}</span> {{sample.Barcode}}
+  <div class="sample-list-container">
+      <div class="badge left">{{sample.SampleId}}</div>
+      <div class="center">{{sample.FirstName}} {{sample.LastName}}</div>
+      <div class="right" style="padding-right: 10px;"><span>{{sample.Status}}</span></div>
+      <div class="clear"></div>
+  </div>
   </li>
 </ul>
 <div *ngIf="samples">
