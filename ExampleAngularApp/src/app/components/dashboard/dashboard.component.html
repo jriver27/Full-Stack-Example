@@ -1,1 +1,10 @@
 <h3>My Dashboard</h3>
+
+<h3>Top Samples</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let user of topUsers" class="col-1-4">
+    <div class="module user">
+      <h4>{{user.FirstName}} {{user.LastName}}</h4>
+    </div>
+  </div>
+</div>

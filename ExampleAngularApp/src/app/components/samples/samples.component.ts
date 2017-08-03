@@ -5,18 +5,16 @@ import { OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'my-samples',
-  moduleId: module.id,
   templateUrl: './samples.component.html',
   styleUrls: ['./samples.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: []
+  encapsulation: ViewEncapsulation.None
 })
 export class SamplesComponent implements OnInit {
   samples: Sample[];
 
   selectedSample: Sample;
 
-  constructor (private sampleService: SampleService){}
+  constructor (private sampleService: SampleService) {}
 
   ngOnInit(): void {
     this.getSamples();
