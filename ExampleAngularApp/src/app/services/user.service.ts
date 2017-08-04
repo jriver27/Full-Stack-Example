@@ -16,4 +16,13 @@ export class UserService {
                 .subscribe((data) => resolve(data));
         }));
     };
+
+    getAllUsers(): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.http
+                .get('http://localhost:49909/api/user/all')
+                .map(res => res.json())
+                .subscribe((data) => resolve(data));
+        });
+    }
 }

@@ -12,10 +12,10 @@ using ExampleApiServer.Models;
 
 namespace ExampleApiServer.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/User")]
-    public class UserController : Controller
-    {
+	[Produces("application/json")]
+	[Route("api/User")]
+	public class UserController : Controller
+	{
 		private readonly IDbConnection db;
 
 		public UserController(IDBConnectionService dbConnection)
@@ -45,5 +45,23 @@ namespace ExampleApiServer.Controllers
 				return NotFound();
 			}
 		}
-    }
+
+		[HttpGet("all")]
+		public async Task<IActionResult> Get()
+		{
+			try
+			{
+
+				var allUsers = db.Query("AllUsers", commandType: CommandType.StoredProcedure);
+
+				return Json(allUsers);
+			}
+			catch (Exception e)
+			{
+				//Logger.log(this.ToString, e.ToString());
+				Console.WriteLine(e.ToString());
+				return NotFound();
+			}
+		}
+	}
 }

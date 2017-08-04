@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
 })
 export class SamplesComponent implements OnInit {
   samples: Sample[];
-
   selectedSample: Sample;
 
-  constructor (private sampleService: SampleService, private router: Router) {}
+  constructor(private sampleService: SampleService, private router: Router) { }
 
   ngOnInit(): void {
     this.getSamples();

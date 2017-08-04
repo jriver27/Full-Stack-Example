@@ -14,6 +14,12 @@ import { SampleService } from '../../services/sample.service';
 
 })
 export class SampleDetailComponent implements OnInit {
+
+  constructor(
+    private sampleService: SampleService,
+    private route: ActivatedRoute
+  ) { };
+
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.sampleService.getSample(+params.get('id')))
@@ -21,11 +27,6 @@ export class SampleDetailComponent implements OnInit {
         this.sample = sample;
       });
   }
-
-  constructor(
-    private sampleService: SampleService,
-    private route: ActivatedRoute
-  ) { };
 
   @Input() sample: Sample;
 }

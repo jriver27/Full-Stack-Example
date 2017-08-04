@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { SampleService } from './services/sample.service';
 import { RouterModule } from '@angular/router';
 
 // Prime Imports
@@ -19,7 +18,9 @@ import { SamplesComponent } from './components/samples/samples.component';
 import { SampleDetailComponent } from './components/sample-detail/sample-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserDetailComponent } from 'app/components/user-detail/user-detail.component';
+import { SampleService } from './services/sample.service';
 import { UserService } from 'app/services/user.service';
+import { UsersComponent } from 'app/components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserService } from 'app/services/user.service';
     SamplesComponent,
     SampleDetailComponent,
     DashboardComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,10 @@ import { UserService } from 'app/services/user.service';
       {
         path: 'samples',
         component: SamplesComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent
       },
       {
         path: 'dashboard',
