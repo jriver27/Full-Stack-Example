@@ -4,7 +4,7 @@
     <p-header>Users with the most Samples</p-header>
     <p-footer>Choose from the list to go to their details.</p-footer>
     <ng-template let-user pTemplate="item">
-      <div class="ui-g ui-fluid">
+      <div class="ui-g ui-fluid" (click)="onSelect(user)">
             <div class="ui-g-12 ui-md-9">
                 <div class="ui-g">
                     <div class="ui-g-2 ui-sm-6">FirstName: </div>

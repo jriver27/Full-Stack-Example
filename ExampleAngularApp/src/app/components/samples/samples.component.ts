@@ -28,7 +28,6 @@ export class SamplesComponent implements OnInit {
   }
 
   onSelect(sample: Sample): void {
-    // this.selectedSample = sample;
     this.router.navigateByUrl(`/detail/${sample.SampleId}`);
   }
 };

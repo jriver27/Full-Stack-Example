@@ -7,4 +7,5 @@ export class Sample {
   FirstName?: string;
   LastName?: string;
   Status?: string;
+  UserId?: number;
 };

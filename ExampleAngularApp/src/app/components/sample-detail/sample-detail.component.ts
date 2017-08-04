@@ -18,16 +18,14 @@ export class SampleDetailComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.sampleService.getSample(+params.get('id')))
       .subscribe(sample => {
-        console.log(sample);
         this.sample = sample;
       });
   }
 
   constructor(
     private sampleService: SampleService,
-    private route: ActivatedRoute,
-    private location: Location
-  ){};
+    private route: ActivatedRoute
+  ) { };
 
-  @Input()sample: Sample;
+  @Input() sample: Sample;
 }
