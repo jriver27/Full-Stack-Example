@@ -1,19 +1,17 @@
-<ul class="samples">
-  <li *ngFor="let sample of samples" 
-  [class.selected]="sample === selectedSample"
-  (click)="onSelect(sample)">
-  <div class="sample-list-container">
-      <div class="badge left">{{sample.SampleId}}</div>
-      <div class="center">{{sample.FirstName}} {{sample.LastName}}</div>
-      <div class="right" style="padding-right: 10px;"><span>{{sample.Status}}</span></div>
-      <div class="clear"></div>
-      <a [routerLink]="['/details', sample]"></a>
+<div class="page-content">
+  <h3>All Samples</h3>
+  <div *ngIf="samples">
+    <span>Current number of samples: {{samples.length}}</span>
   </div>
-  </li>
-</ul>
-<div *ngIf="samples">
-  <span>Current number of samples: {{samples.length}}</span>
+  <ul class="samples">
+    <li *ngFor="let sample of samples" [class.selected]="sample === selectedSample" (click)="onSelect(sample)">
+      <div class="sample-list-container">
+        <div class="badge left">{{sample.SampleId}}</div>
+        <div class="center">{{sample.FirstName}} {{sample.LastName}}</div>
+        <div class="right" style="padding-right: 10px;"><span>{{sample.Status}}</span></div>
+        <div class="clear"></div>
+        <a [routerLink]="['/details', sample]"></a>
+      </div>
+    </li>
+  </ul>
 </div>
-
-
-<!-- <sample-detail [sample]="selectedSample"></sample-detail> -->

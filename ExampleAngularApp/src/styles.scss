@@ -2,13 +2,16 @@
 
 @import '../node_modules/primeng/resources/themes/bootstrap/theme.css';
 @import '../node_modules/primeng/resources/primeng.min.css';
-
-$font-stack:    Helvetica, sans-serif;
+$font-stack : Helvetica,
+sans-serif;
 $primary-color: #333;
-$page-background-color: rgba(230, 235, 240, 0.74); 
-
+$page-background-color: rgba(230, 235, 240, 0.74);
 body {
   font: 100% $font-stack;
   color: $primary-color;
   background-color: $page-background-color;
+}
+
+.page-content {
+  padding: 0 2px 4px 2px;
 }
