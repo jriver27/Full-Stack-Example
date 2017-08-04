@@ -17,4 +17,9 @@ export class SampleService {
                 .subscribe((data) => resolve(data));
         }));
      };
+
+     getSample(id: number): Promise<Sample> {
+         return this.getSamples()
+             .then(samples => samples.find(sample => sample.SampleId === id));
+     };
 }

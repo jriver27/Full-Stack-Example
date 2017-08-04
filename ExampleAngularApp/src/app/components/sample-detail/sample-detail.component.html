@@ -1,8 +1,21 @@
 <div *ngIf="sample">
-  <h2>{{sample.SampleId}} details!</h2>
-  <div><label>SampleId: </label>{{sample.SampleId}}</div>
-  <div>
+  <h2>Sample Details</h2>
+  <div class="sample-detail-wrapper">
+    <div>
+      <label>SampleId: </label>
+      <div>{{sample.SampleId}}</div>
+    </div>
+    <div>
       <label>Barcode: </label>
-      <input [(ngModel)]="sample.Barcode" placeholder="barcode"/>
+      <div><input [(ngModel)]="sample.Barcode" placeholder="barcode"/></div>
+    </div>
+    <div>
+      <label>Created By: </label>
+      <div>{{sample.FirstName}} {{sample.LastName}}</div>
+    </div>
+    <div>
+      <label>Status: </label>
+      <div>{{sample.Status}}</div>
+    </div>
   </div>
 </div>

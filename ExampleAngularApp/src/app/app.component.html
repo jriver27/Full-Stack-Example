@@ -1,6 +1,4 @@
 <h1>{{title}}</h1>
-<nav>
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/samples">Samples</a>
-</nav>
+
+<p-tabMenu [model]="items" [activeItem]="activeItem" [styleClass]="ui-tabmenu"></p-tabMenu>
 <router-outlet></router-outlet>

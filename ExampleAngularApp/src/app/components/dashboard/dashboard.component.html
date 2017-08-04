@@ -1,10 +1,22 @@
-<h3>My Dashboard</h3>
-
 <h3>Top Samples</h3>
-<div class="grid grid-pad">
-  <div *ngFor="let user of topUsers" class="col-1-4">
-    <div class="module user">
-      <h4>{{user.FirstName}} {{user.LastName}}</h4>
-    </div>
-  </div>
-</div>
+
+<p-dataList [value]="topUsers">
+    <p-header>Users with the most Samples</p-header>
+    <p-footer>Choose from the list to go to their details.</p-footer>
+    <ng-template let-user pTemplate="item">
+      <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-9">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">FirstName: </div>
+                    <div class="ui-g-10 ui-sm-6">{{user.FirstName}}</div>
+                    
+                    <div class="ui-g-2 ui-sm-6">LastName: </div>
+                    <div class="ui-g-10 ui-sm-6">{{user.LastName}}</div>
+                    
+                    <div class="ui-g-2 ui-sm-6">Sample Count: </div>
+                    <div class="ui-g-10 ui-sm-6">{{user.SampleCount}}</div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataList>
