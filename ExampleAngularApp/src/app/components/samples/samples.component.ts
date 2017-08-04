@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Sample } from '../../models/sample';
 import { SampleService } from '../../services/sample.service';
 import { OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'my-samples',
@@ -14,7 +15,7 @@ export class SamplesComponent implements OnInit {
 
   selectedSample: Sample;
 
-  constructor (private sampleService: SampleService) {}
+  constructor (private sampleService: SampleService, private router: Router) {}
 
   ngOnInit(): void {
     this.getSamples();
@@ -27,6 +28,7 @@ export class SamplesComponent implements OnInit {
   }
 
   onSelect(sample: Sample): void {
-    this.selectedSample = sample;
+    // this.selectedSample = sample;
+    this.router.navigateByUrl(`/detail/${sample.SampleId}`);
   }
 };

@@ -9,7 +9,7 @@ import { SampleDetailComponent } from './components/sample-detail/sample-detail.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { SampleService } from './services/sample.service';
-import { RouterModule } from '@angular/router';
+import { RouterModule} from '@angular/router';
 
 import {TabMenuModule} from 'primeng/primeng';
 
@@ -33,9 +33,9 @@ import { DataListModule } from 'primeng/primeng';
     HttpModule,
     RouterModule.forRoot([
       {
-      path: '',
-      redirectTo: '/dashboard',
-      pathMatch: 'full'
+        path: '',
+        redirectTo: '/dashboard',
+        pathMatch: 'full'
       },
       {
         path: 'samples',
@@ -44,6 +44,10 @@ import { DataListModule } from 'primeng/primeng';
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'detail/:id',
+        component: SampleDetailComponent
       }]),
   TabMenuModule,
   TabViewModule,

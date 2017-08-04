@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SampleService } from '../../services/sample.service';
 import { User } from 'app/models/users';
 import * as _ from 'lodash';
-// import { DataListModule } from 'primeng/primeng';
 
 @Component({
   selector: 'my-dashboard',
