@@ -33,3 +33,4 @@ msbuild.wrn
 /ExampleApiServer/ExampleDatabase/ExampleDatabase.dbmdl
 /ExampleApiServer/ExampleDatabase/ExampleDatabase.jfm
 /ExampleApiServer/ExampleDatabase/ExampleDatabase.jfm
+*.jfm
