@@ -5,11 +5,15 @@
 -- 8/4/2017 | JAVIER RIVERA | Initial Creation
 ------------------------------------------------------------------------------
   
-CREATE PROCEDURE [dbo].[UserAllSamples]
+ALTER PROCEDURE [dbo].[UserAllSamples]
 	@userId int = 0
 AS
 
 SET NOCOUNT ON;  
+
+---- TESTING
+--DECLARE @userId smallint = 10;
+---- TESTING
 
 SELECT 
 	u.UserId, 
@@ -21,8 +25,8 @@ SELECT
 	s.StatusId,
 	st.Status
 FROM Users as u
-	Right Join Samples as s on s.CreatedBy = u.UserId
-	RIGHT JOIN Statuses AS st on st.StatusId = s.StatusId
+	LEFT JOIN Samples as s on u.UserId = s.CreatedBy
+	LEFT JOIN Statuses AS st on st.StatusId = s.StatusId
 WHERE u.UserId = @userId
 
 GO

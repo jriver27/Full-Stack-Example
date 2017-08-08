@@ -28,7 +28,11 @@ export class UsersComponent implements OnInit {
       .getAllUsers()
       .then(users => {
         this.allUsersData = _.map(users, (user: any) => {
-          user.SampleCount = user.SampleIds.split(',').length;
+          let length = 0;
+          if (user.SampleIds) {
+            length = user.SampleIds.split(',').length;
+          }
+          user.SampleCount = length;
           return user;
         });
       });

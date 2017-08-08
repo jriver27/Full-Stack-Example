@@ -10,6 +10,7 @@ import { Status } from 'app/models/status';
 import { UserService } from 'app/services/user.service';
 import { StatusService } from 'app/services/status.service';
 import * as _ from 'lodash';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'sample-detail',
@@ -22,8 +23,10 @@ export class SampleDetailComponent implements OnInit {
   editMode = false;
   selectedUser: any;
   selectedStatus: any;
-  users: any[];
-  statuses: any[];
+  selectedBarcode: any;
+  allUsers: any[];
+  users: SelectItem[];
+  statuses: SelectItem[];
 
   constructor(
     private sampleService: SampleService,
@@ -36,14 +39,19 @@ export class SampleDetailComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.sampleService.getSample(+params.get('id')))
       .subscribe(sample => {
+
         this.sample = sample;
+        this.selectedStatus = sample.StatusId;
+        this.selectedUser = sample.UserId;
+        this.selectedBarcode = sample.Barcode;
       });
   }
 
   edit(event): void {
     Promise.all([this.userService.getUser(null), this.statusService.getStatuses()])
       .then(values => {
-        console.log(values);
+
+        this.allUsers = values;
 
         this.users = _.map(values[0], user => {
           return { label: `${user.FirstName} ${user.LastName}`, value: user.UserId };
@@ -57,11 +65,34 @@ export class SampleDetailComponent implements OnInit {
       });
   }
 
+  private updateUserInformation(userId: number, statusId: number, barcode: number): void {
+    const userInfo = _.find(this.users, user => {
+      return user.value === userId;
+    });
+
+    const statusesInfo = _.find(this.statuses, status => {
+      return status.value === statusId;
+    });
+
+    const selectedUserFirstName = userInfo.label.split(' ')[0];
+    const selectedUserLastName = userInfo.label.split(' ')[1];
+
+    this.sample.FirstName = selectedUserFirstName;
+    this.sample.LastName = selectedUserLastName;
+    this.sample.Barcode = barcode;
+    this.sample.Status = statusesInfo.label;
+    this.sample.StatusId = statusId;
+    this.sample.CreatedBy = userId;
+
+    this.sampleService.updateSample(this.sample).then();
+  };
+
   save(event): void {
+    this.updateUserInformation(this.selectedUser, this.selectedStatus, this.selectedBarcode);
     this.editMode = !this.editMode;
   }
 
-  cancel(ecent): void {
+  cancel(event): void {
     this.editMode = false;
   }
 

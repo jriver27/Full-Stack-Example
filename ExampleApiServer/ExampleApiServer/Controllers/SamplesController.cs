@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace ExampleApiServer.Controllers
 {
+	[Produces("application/json")]
 	[Route("api/[controller]")]
 	public class SamplesController : Controller
     {
@@ -27,9 +28,7 @@ namespace ExampleApiServer.Controllers
 		{
 			try
 			{
-				var Samples = db.Query("select * from Samples " +
-					"right join Users on Users.UserId = Samples.CreatedBy " + 
-					"right join Statuses on Statuses.StatusId = Samples.StatusId");
+				var Samples = db.Query("GetAllSamplesWithUserAndStatusInfo", commandType: CommandType.StoredProcedure);
 
 				return Json(Samples);
 			}
@@ -137,56 +136,30 @@ namespace ExampleApiServer.Controllers
 			}
 		}
 
-		//      // GET: Samples/Edit/5
-		//      public async Task<IActionResult> Edit(int? id)
-		//      {
-		//          if (id == null)
-		//          {
-		//              return NotFound();
-		//          }
+		// POST: Samples/Edit/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost("edit")]
+		public async Task<IActionResult> Edit([FromBody] Samples sample)
+		{
+			try
+			{
 
-		//          var samples = await _context.Samples.SingleOrDefaultAsync(m => m.SampleId == id);
-		//          if (samples == null)
-		//          {
-		//              return NotFound();
-		//          }
-		//          return View(samples);
-		//      }
+				var savedSample = db.Query("EditSample",
+					new {
+						id = sample.SampleId,
+						barcode = sample.Barcode,
+						userId = sample.CreatedBy,
+						statusId = sample.StatusId
+					}, commandType: CommandType.StoredProcedure);
+				return Json(sample);
+			}
+			catch (Exception e)
+			{
 
-		//      // POST: Samples/Edit/5
-		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		//      // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		//      [HttpPost]
-		//      [ValidateAntiForgeryToken]
-		//      public async Task<IActionResult> Edit(int id, [Bind("SampleId,StatusId,Barcode,CreatedAt,CreatedBy")] Samples samples)
-		//      {
-		//          if (id != samples.SampleId)
-		//          {
-		//              return NotFound();
-		//          }
-
-		//          if (ModelState.IsValid)
-		//          {
-		//              try
-		//              {
-		//                  _context.Update(samples);
-		//                  await _context.SaveChangesAsync();
-		//              }
-		//              catch (DbUpdateConcurrencyException)
-		//              {
-		//                  if (!SamplesExists(samples.SampleId))
-		//                  {
-		//                      return NotFound();
-		//                  }
-		//                  else
-		//                  {
-		//                      throw;
-		//                  }
-		//              }
-		//              return RedirectToAction("Index");
-		//          }
-		//          return View(samples);
-		//      }
+				return NotFound();
+			}
+		}
 
 		//      // GET: Samples/Delete/5
 		//      public async Task<IActionResult> Delete(int? id)

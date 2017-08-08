@@ -9,7 +9,10 @@
       <div>
         <label>Barcode: </label>
         <div *ngIf="editMode">
-          <input [(ngModel)]="sample.Barcode" placeholder="barcode" />
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-barcode"></i></span>
+            <input type="text" [(ngModel)]="selectedBarcode" pInputText placeholder="barcode">
+          </div>
         </div>
         <div *ngIf="!editMode">
           {{sample.Barcode}}
@@ -18,7 +21,6 @@
       <div>
         <label>Created By: </label>
         <div *ngIf="editMode">
-          <!-- dropdown with available users -->
           <p-dropdown [options]="users" [(ngModel)]="selectedUser"></p-dropdown>
         </div>
         <div *ngIf="!editMode">
@@ -31,7 +33,7 @@
           <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus"></p-dropdown>
         </div>
         <div *ngIf="!editMode">
-          {{sample.status}}
+          {{sample.Status}}
         </div>
       </div>
     </div>
@@ -46,5 +48,4 @@
       <div class="control-delete"><button pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
     </div>
   </div>
-
 </div>
