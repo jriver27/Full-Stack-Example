@@ -2,30 +2,34 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { SamplesComponent } from './components/samples/samples.component';
-import { SampleDetailComponent } from './components/sample-detail/sample-detail.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-
-import { SampleService } from './services/sample.service';
-import { RouterModule} from '@angular/router';
-
-import {TabMenuModule} from 'primeng/primeng';
-
-import '../../node_modules/primeng/resources/themes/omega/theme.css';
+// Prime Imports
+import { SharedModule, DataTableModule, TabMenuModule, DataListModule, ButtonModule, DropdownModule } from 'primeng/primeng';
 import '../../node_modules/primeng/resources/primeng.min.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
 import { CodeHighlighterModule } from 'primeng/components/codehighlighter/codehighlighter';
-import { DataListModule } from 'primeng/primeng';
+
+// Our Component Imports
+import { AppComponent } from './app.component';
+import { SamplesComponent } from './components/samples/samples.component';
+import { SampleDetailComponent } from './components/sample-detail/sample-detail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserDetailComponent } from 'app/components/user-detail/user-detail.component';
+import { SampleService } from './services/sample.service';
+import { UserService } from 'app/services/user.service';
+import { UsersComponent } from 'app/components/users/users.component';
+import { StatusService } from 'app/services/status.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     SamplesComponent,
     SampleDetailComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserDetailComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -42,19 +46,31 @@ import { DataListModule } from 'primeng/primeng';
         component: SamplesComponent
       },
       {
+        path: 'users',
+        component: UsersComponent
+      },
+      {
         path: 'dashboard',
         component: DashboardComponent
       },
       {
         path: 'detail/:id',
         component: SampleDetailComponent
+      },
+      {
+        path: 'user/:id',
+        component: UserDetailComponent
       }]),
-  TabMenuModule,
-  TabViewModule,
-  CodeHighlighterModule,
-  DataListModule
-],
-  providers: [ SampleService ],
+    TabMenuModule,
+    TabViewModule,
+    CodeHighlighterModule,
+    DataListModule,
+    SharedModule,
+    DataTableModule,
+    ButtonModule,
+    DropdownModule
+  ],
+  providers: [SampleService, UserService, StatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

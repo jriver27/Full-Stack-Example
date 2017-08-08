@@ -1,15 +1,16 @@
 my-dashboard {
-    p-dataList {
-        li:nth-child(odd) {
-            background: #ffffff;
-        }
-        li:nth-child(even) {
-            background: rgba(211, 211, 211, 0.37);
-        }
-
-        li:hover {
-            background-color: #BBD8DC !important;
-            color: white;
-        }
-    }    
+  color: black;
+  font-size: large;
+  p-dataList {
+    li:nth-child(odd) {
+      background: #ffffff;
+    }
+    li:nth-child(even) {
+      background: rgba(211, 211, 211, 0.37);
+    }
+    li:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+  }
 }

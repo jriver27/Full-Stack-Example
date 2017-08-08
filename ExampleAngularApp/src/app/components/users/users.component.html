@@ -1,0 +1,10 @@
+<div class="page-content">
+  <h3>This is the users page</h3>
+
+  <p-dataTable [value]="allUsersData" [responsive]="true" [stacked]="stacked" selectionMode="single" [(selection)]="selectedUser"
+    (onRowSelect)="onRowSelect($event, user)">
+    <p-column field="FirstName" [sortable]="true" [filter]="true" header="First Name"></p-column>
+    <p-column field="LastName" [sortable]="true" [filter]="true" header="Last Name"></p-column>
+    <p-column field="SampleCount" [sortable]="true" header="Sample Count"></p-column>
+  </p-dataTable>
+</div>

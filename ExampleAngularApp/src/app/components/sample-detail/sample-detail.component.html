@@ -1,21 +1,50 @@
-<div *ngIf="sample">
-  <h2>Sample Details</h2>
-  <div class="sample-detail-wrapper">
-    <div>
-      <label>SampleId: </label>
-      <div>{{sample.SampleId}}</div>
-    </div>
-    <div>
-      <label>Barcode: </label>
-      <div><input [(ngModel)]="sample.Barcode" placeholder="barcode"/></div>
-    </div>
-    <div>
-      <label>Created By: </label>
-      <div>{{sample.FirstName}} {{sample.LastName}}</div>
-    </div>
-    <div>
-      <label>Status: </label>
-      <div>{{sample.Status}}</div>
+<div class="page-content">
+  <div *ngIf="sample">
+    <h2>Sample Details</h2>
+    <div class="sample-detail-wrapper">
+      <div>
+        <label>SampleId: </label>
+        <div>{{sample.SampleId}}</div>
+      </div>
+      <div>
+        <label>Barcode: </label>
+        <div *ngIf="editMode">
+          <input [(ngModel)]="sample.Barcode" placeholder="barcode" />
+        </div>
+        <div *ngIf="!editMode">
+          {{sample.Barcode}}
+        </div>
+      </div>
+      <div>
+        <label>Created By: </label>
+        <div *ngIf="editMode">
+          <!-- dropdown with available users -->
+          <p-dropdown [options]="users" [(ngModel)]="selectedUser"></p-dropdown>
+        </div>
+        <div *ngIf="!editMode">
+          <div>{{sample.FirstName}} {{sample.LastName}}</div>
+        </div>
+      </div>
+      <div>
+        <label>Status: </label>
+        <div *ngIf="editMode">
+          <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus"></p-dropdown>
+        </div>
+        <div *ngIf="!editMode">
+          {{sample.status}}
+        </div>
+      </div>
     </div>
   </div>
+  <div class="control-wrapper">
+    <div *ngIf="!editMode">
+      <button pButton type="button" (click)="edit($event)" icon="fa-pencil" label="edit"></button>
+    </div>
+    <div *ngIf="editMode">
+      <button pButton type="button" (click)="save($event)" icon="fa-save" label="Save"></button>
+      <button pButton type="button" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
+      <div class="control-delete"><button pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
+    </div>
+  </div>
+
 </div>

@@ -7,15 +7,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-samples',
   templateUrl: './samples.component.html',
-  styleUrls: ['./samples.component.scss'],
+  styleUrls: ['./samples.component.scss', '../../app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class SamplesComponent implements OnInit {
   samples: Sample[];
-
   selectedSample: Sample;
 
-  constructor (private sampleService: SampleService, private router: Router) {}
+  constructor(private sampleService: SampleService, private router: Router) { }
 
   ngOnInit(): void {
     this.getSamples();
@@ -28,7 +27,6 @@ export class SamplesComponent implements OnInit {
   }
 
   onSelect(sample: Sample): void {
-    // this.selectedSample = sample;
     this.router.navigateByUrl(`/detail/${sample.SampleId}`);
   }
 };
