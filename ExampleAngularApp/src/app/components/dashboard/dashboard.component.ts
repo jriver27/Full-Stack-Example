@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'my-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss', '../../app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
@@ -48,8 +48,6 @@ export class DashboardComponent implements OnInit {
             if (this.topUsers.length === 5) {
               return;
             } else {
-              console.log(arr.length);
-
               this.topUsers.push({
                 FirstName: arr[0].FirstName,
                 LastName: arr[0].LastName,

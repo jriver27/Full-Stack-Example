@@ -5,8 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 // Prime Imports
-import { SharedModule, DataTableModule, TabMenuModule, DataListModule, DataTable } from 'primeng/primeng';
-import '../../node_modules/primeng/resources/themes/omega/theme.css';
+import { SharedModule, DataTableModule, TabMenuModule, DataListModule, ButtonModule, DropdownModule } from 'primeng/primeng';
 import '../../node_modules/primeng/resources/primeng.min.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
@@ -21,6 +20,7 @@ import { UserDetailComponent } from 'app/components/user-detail/user-detail.comp
 import { SampleService } from './services/sample.service';
 import { UserService } from 'app/services/user.service';
 import { UsersComponent } from 'app/components/users/users.component';
+import { StatusService } from 'app/services/status.service';
 
 @NgModule({
   declarations: [
@@ -66,9 +66,11 @@ import { UsersComponent } from 'app/components/users/users.component';
     CodeHighlighterModule,
     DataListModule,
     SharedModule,
-    DataTableModule
+    DataTableModule,
+    ButtonModule,
+    DropdownModule
   ],
-  providers: [SampleService, UserService],
+  providers: [SampleService, UserService, StatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

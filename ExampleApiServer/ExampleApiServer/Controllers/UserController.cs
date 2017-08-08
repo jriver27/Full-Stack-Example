@@ -28,15 +28,19 @@ namespace ExampleApiServer.Controllers
 		{
 			try
 			{
+				
 				if (id == null)
 				{
-					return NotFound();
+					var userSamples = db.Query("Select * from Users");
+					return Json(userSamples);
 				}
 
-				var userSamples = db.Query("UserAllSamples",
+				else
+				{
+					var userSamples = db.Query("UserAllSamples",
 					new { userID = id }, commandType: CommandType.StoredProcedure);
-
-				return Json(userSamples);
+					return Json(userSamples);
+				}
 			}
 			catch (Exception e)
 			{

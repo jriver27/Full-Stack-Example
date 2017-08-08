@@ -2,11 +2,11 @@
   <h3>User Detail</h3>
 
   <div *ngIf="user">
-    <p-dataTable [value]="userData" [responsive]="true" [stacked]="stacked">
+    <p-dataTable [value]="userData" [responsive]="true" [stacked]="stacked" (click)="onSelect(user)">
       <p-header>{{user.FirstName}} {{user.LastName}}</p-header>
       <p-column field="Status" [sortable]="true" [filter]="true" header="Status"></p-column>
       <p-column field="Barcode" [sortable]="true" header="Barcode"></p-column>
-      <p-column field="DisplayDate" [sortable]="true" header="Creation Date"></p-column>
+      <p-column field="DisplayDate" sortable="custom" (sortFunction)="mysort($event)" header="Creation Date"></p-column>
     </p-dataTable>
   </div>
 </div>

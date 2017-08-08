@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-samples',
   templateUrl: './samples.component.html',
-  styleUrls: ['./samples.component.scss'],
+  styleUrls: ['./samples.component.scss', '../../app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class SamplesComponent implements OnInit {

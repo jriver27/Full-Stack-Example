@@ -1,4 +1,45 @@
-﻿IF NOT EXISTS 
+﻿IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.allUsers'))
+   exec('CREATE PROCEDURE [dbo].[MyProc] AS BEGIN SET NOCOUNT ON; END')
+GO
+CREATE PROCEDURE [dbo].[allUsers]
+AS
+SELECT U.UserId, U.FirstName, U.LastName,
+    STUFF(( 
+        SELECT ', ' + CAST(S.SampleId AS varchar(5))
+        FROM Samples S
+        WHERE S.CreatedBy = U.UserId
+        FOR XML PATH('') 
+        ), 1, 2, '' )
+    AS SampleIds
+FROM Users U
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.UserAllSamples'))
+   exec('CREATE PROCEDURE [dbo].[UserAllSamples] AS BEGIN SET NOCOUNT ON; END')
+GO
+
+ALTER PROCEDURE [dbo].[UserAllSamples]
+	@userId int = 0
+AS
+
+SET NOCOUNT ON;  
+
+SELECT 
+	u.UserId, 
+	u.FirstName, 
+	u.LastName, 
+	s.SampleID,
+	s.Barcode,
+	s.CreatedAt,
+	s.StatusId,
+	st.Status
+FROM Users as u
+	Right Join Samples as s on s.CreatedBy = u.UserId
+	RIGHT JOIN Statuses AS st on st.StatusId = s.StatusId
+WHERE u.UserId = @userId
+
+GO
+
+IF NOT EXISTS 
 (
     SELECT * FROM sys.tables t 
     JOIN sys.schemas s 
