@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Prime Imports
-import { SharedModule, DataTableModule, TabMenuModule, DataListModule, ButtonModule, DropdownModule } from 'primeng/primeng';
+import { SharedModule, DataTableModule, TabMenuModule, DataListModule, ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
 import '../../node_modules/primeng/resources/primeng.min.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
@@ -68,7 +69,9 @@ import { StatusService } from 'app/services/status.service';
     SharedModule,
     DataTableModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    InputTextModule,
+    BrowserAnimationsModule
   ],
   providers: [SampleService, UserService, StatusService],
   bootstrap: [AppComponent]

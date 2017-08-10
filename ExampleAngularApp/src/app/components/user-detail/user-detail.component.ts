@@ -26,8 +26,10 @@ export class UserDetailComponent implements OnInit {
       .subscribe(data => {
         if (data !== null) {
           this.userData = _.map(data, d => {
-            d.CreatedAt = moment(d.CreatedAt, 'YYYY-MM-DDT').toDate();
-            d.DisplayDate = moment(d.CreatedAt, 'YYYY-MM-DDT').format('MM/DD/YYYY');
+            if (d.CreatedAt) {
+              d.CreatedAt = moment(d.CreatedAt, 'YYYY-MM-DDT').toDate();
+              d.DisplayDate = moment(d.CreatedAt, 'YYYY-MM-DDT').format('MM/DD/YYYY');
+            }
 
             return d;
           });
@@ -52,7 +54,7 @@ export class UserDetailComponent implements OnInit {
     this.userData = [...this.userData];
   }
 
-  onSelect(userDetail): void {
-    this.router.navigateByUrl(`/detail/${userDetail.SampleID}`);
+  onSelect(event): void {
+    this.router.navigateByUrl(`/detail/${event.data.SampleID}`);
   }
 };

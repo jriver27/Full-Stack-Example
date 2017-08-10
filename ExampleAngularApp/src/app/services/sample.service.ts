@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Sample } from '../models/sample';
 import { SAMPLES } from './mock-samples';
-import {Http, Response} from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 
 @Injectable()
 export class SampleService {
-    constructor(private http: Http) {}
+    constructor(private http: Http) { }
 
     getSamples(): Promise<Sample[]> {
 
@@ -16,10 +16,18 @@ export class SampleService {
                 .map(res => res.json())
                 .subscribe((data) => resolve(data));
         }));
-     };
+    };
 
-     getSample(id: number): Promise<Sample> {
-         return this.getSamples()
-             .then(samples => samples.find(sample => sample.SampleId === id));
-     };
+    getSample(id: number): Promise<Sample> {
+        return this.getSamples()
+            .then(samples => samples.find(sample => sample.SampleId === id));
+    };
+
+    updateSample(sample: Sample): Promise<Sample> {
+        return new Promise<Sample>((resolve, reject) => {
+            this.http
+                .post('http://localhost:49909/api/samples/edit', sample)
+                .map(res => res.json());
+        });
+    };
 }
