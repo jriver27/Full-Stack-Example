@@ -23,8 +23,13 @@ sample-detail {
   text-align: center;
   color: #f8f8f8 !important;
   .sample-detail-wrapper {
+    border: 1px solid #4297d7;
+    background: #5c9ccc;
+    color: #ffffff;
+    font-weight: bold;
     position: relative;
     text-align: left;
+    border-radius: 5px;
     @media screen and (max-width: $break-small) {
       padding: 0;
     }
@@ -58,6 +63,7 @@ sample-detail {
 
 .control-wrapper {
   text-align: left;
+  padding-top: 2em;
   .control-delete {
     display: inline-block;
     position: fixed;

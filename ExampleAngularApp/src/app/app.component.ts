@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Dashboard', icon: 'fa-globe', routerLink: ['dashboard'], command: (event) => {
+                label: 'Home', icon: 'fa-home', routerLink: ['dashboard'], command: (event) => {
                     this.activeItem = this.items[0];
                 }
             },
