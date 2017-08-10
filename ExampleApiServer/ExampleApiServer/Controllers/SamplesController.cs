@@ -180,20 +180,20 @@ namespace ExampleApiServer.Controllers
 		//          return View(samples);
 		//      }
 
-		//      // POST: Samples/Delete/5
-		//      [HttpPost, ActionName("Delete")]
-		//      [ValidateAntiForgeryToken]
-		//      public async Task<IActionResult> DeleteConfirmed(int id)
-		//      {
-		//          var samples = await _context.Samples.SingleOrDefaultAsync(m => m.SampleId == id);
-		//          _context.Samples.Remove(samples);
-		//          await _context.SaveChangesAsync();
-		//          return RedirectToAction("Index");
-		//      }
+		// POST: Samples/Delete/
+		[HttpDelete]
+		public async Task<IActionResult> Delete([FromBody] Samples sample)
+		{
+			if (sample != null)
+			{
 
-		//      private bool SamplesExists(int id)
-		//      {
-		//          return _context.Samples.Any(e => e.SampleId == id);
-		//      }
+				var success = db.Query("DELETE FROM SAMPLES WHERE Samples.SAMPLEID = " + sample.SampleId.ToString());
+
+				return Json(success);
+			}
+
+			return NotFound();
+		}
+
 	}
 }

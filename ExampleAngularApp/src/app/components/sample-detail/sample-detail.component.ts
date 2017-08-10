@@ -27,12 +27,14 @@ export class SampleDetailComponent implements OnInit {
   allUsers: any[];
   users: SelectItem[];
   statuses: SelectItem[];
+  msgs = [];
 
   constructor(
     private sampleService: SampleService,
     private userService: UserService,
     private statusService: StatusService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { };
 
   ngOnInit(): void {
@@ -97,6 +99,18 @@ export class SampleDetailComponent implements OnInit {
   }
 
   delete(event): void {
+    console.log('clicking delete');
+
     this.editMode = false;
+    this.sampleService.deleteSample(this.sample).then((nothing) => {
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Successfully Deleted The Sample' });
+      setTimeout(a => {
+        this.location.back();
+      }, 2000);
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit, ViewEncapsulation } from '@angular/core';
+import { Location } from '@angular/common';
 import { UserService } from 'app/services/user.service';
 import { User } from 'app/models/users';
 import 'rxjs/add/operator/switchMap';
@@ -18,7 +19,12 @@ export class UserDetailComponent implements OnInit {
   user: User;
   userData;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap
@@ -56,5 +62,9 @@ export class UserDetailComponent implements OnInit {
 
   onSelect(event): void {
     this.router.navigateByUrl(`/detail/${event.data.SampleID}`);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 };

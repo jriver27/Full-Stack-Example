@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sample } from '../models/sample';
 import { SAMPLES } from './mock-samples';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -40,4 +40,15 @@ export class SampleService {
                 .subscribe((data) => resolve(data));
         });
     }
+
+    deleteSample(sample: Sample): Promise<Sample> {
+        return new Promise<Sample>((resolve, reject) => {
+            this.http
+                .delete('http://localhost:49909/api/samples', new RequestOptions({
+                    body: sample
+                }))
+                .map(res => res.json())
+                .subscribe(data => resolve(data));
+        });
+    };
 }

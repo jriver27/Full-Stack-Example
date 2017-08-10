@@ -39,6 +39,6 @@ export class UsersComponent implements OnInit {
   }
 
   onRowSelect(event): void {
-    this.router.navigateByUrl(`/user/${this.selectedUser.UserId}`);
+    this.router.navigateByUrl(`/user/${event.data.UserId}`);
   }
 };

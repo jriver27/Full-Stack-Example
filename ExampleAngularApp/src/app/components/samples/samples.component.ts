@@ -36,8 +36,8 @@ export class SamplesComponent implements OnInit {
       });
   }
 
-  onSelect(sample: Sample): void {
-    this.router.navigateByUrl(`/detail/${sample.SampleId}`);
+  handleRowSelect(event): void {
+    this.router.navigateByUrl(`/detail/${event.data.SampleId}`);
   }
 
   createSample(): void {

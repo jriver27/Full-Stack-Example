@@ -12,5 +12,10 @@ my-dashboard {
       background-color: #BBD8DC !important;
       color: white;
     }
+    .user-info-wrapper {
+      >div {
+        display: inline-block;
+      }
+    }
   }
 }

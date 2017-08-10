@@ -1,8 +1,22 @@
-@import '../../node_modules/primeng/resources/themes/omega/theme.css';
+@import '../../node_modules/primeng/resources/themes/redmond/theme.css';
+@import '../styles/responsiveVariables.scss';
 body {
-  padding: 0 2px 4px 2px;
   background-image: -webkit-radial-gradient(10% 0, farthest-side ellipse, #154265 20%, #7392c2);
   min-height: 100%;
   background-attachment: fixed, fixed;
   color: #f8f8f8;
+  @include respond-to(medium-screens) {
+    padding: 0 2px 4px 2px;
+  }
+  @include respond-to(wide-screens) {
+    .page-content {
+      padding: 0 3.5em 1em 3.5em;
+    }
+  }
+}
+
+h3 {
+  color: #f8f8f8;
+  font-size: large;
+  text-align: center
 }
