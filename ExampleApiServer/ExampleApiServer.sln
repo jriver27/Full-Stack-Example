@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApiServer", "ExampleApiServer\ExampleApiServer.csproj", "{136D7F52-4995-4518-B085-4DA71EC5E6F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE} = {67F8EDD3-336A-46DB-B5AA-BD0C184861DE}
+	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ExampleDatabase", "ExampleDatabase\ExampleDatabase.sqlproj", "{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}"
 EndProject
@@ -18,8 +21,6 @@ Global
 		{136D7F52-4995-4518-B085-4DA71EC5E6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{136D7F52-4995-4518-B085-4DA71EC5E6F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67F8EDD3-336A-46DB-B5AA-BD0C184861DE}.Release|Any CPU.Deploy.0 = Release|Any CPU

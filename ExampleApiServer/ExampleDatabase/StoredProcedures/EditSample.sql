@@ -5,7 +5,7 @@
 -- 8/4/2017 | JAVIER RIVERA | Initial Creation
 ------------------------------------------------------------------------------
 
-ALTER PROCEDURE [dbo].[EditSample]
+CREATE PROCEDURE [dbo].[EditSample]
 	@id int,
 	@barcode varchar(50),
 	@userId smallInt,
@@ -30,4 +30,3 @@ AS
 	RIGHT JOIN Statuses ST ON ST.StatusId = S.StatusId
 	RIGHT JOIN Users U ON U.UserId = S.CreatedBy
 
-RETURN 0

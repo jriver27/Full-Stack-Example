@@ -1,0 +1,56 @@
+@import '../../../styles/responsiveVariables.scss';
+$break-small: 500px; // On this page we should break on 500 pixels.
+new-sample {
+  .new-sample-form {
+    display: grid; // grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-items: stretch;
+    .ui-dropdown,
+    #barcodeEntry {
+      width: 100% !important;
+    }
+    @include respond-to(handhelds) {
+      .new-sample-user-dropdown {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .new-sample-status-dropdown {
+        grid-column: 1;
+        grid-row: 2;
+      }
+      .new-sample-barcode-input {
+        grid-column: 1;
+        grid-row: 3;
+      }
+    }
+    @include respond-to(medium-screens) {
+      .new-sample-user-dropdown {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .new-sample-status-dropdown {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .new-sample-barcode-input {
+        grid-column: 3;
+        grid-row: 1;
+      }
+    }
+    @include respond-to(wide-screens) {
+      .new-sample-user-dropdown {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .new-sample-status-dropdown {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .new-sample-barcode-input {
+        grid-column: 3;
+        grid-row: 1;
+      }
+    }
+  }
+}

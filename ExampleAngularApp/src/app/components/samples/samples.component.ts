@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class SamplesComponent implements OnInit {
   samples: Sample[];
   selectedSample: Sample;
+  tableColumns: any[];
 
   constructor(private sampleService: SampleService, private router: Router) { }
 
@@ -23,10 +24,23 @@ export class SamplesComponent implements OnInit {
   getSamples(): void {
     this.sampleService
       .getSamples()
-      .then(samples => this.samples = samples);
+      .then(samples => {
+        this.tableColumns = [
+          { field: 'SampleId', header: 'Sample ID' },
+          { field: 'CreatedAt', header: 'Creation Date' },
+          { field: 'FirstName', header: 'First Name' },
+          { field: 'LastName', header: 'Last Name' },
+          { field: 'Status', header: 'Status' }
+        ];
+        this.samples = samples;
+      });
   }
 
-  onSelect(sample: Sample): void {
-    this.router.navigateByUrl(`/detail/${sample.SampleId}`);
+  handleRowSelect(event): void {
+    this.router.navigateByUrl(`/detail/${event.data.SampleId}`);
+  }
+
+  createSample(): void {
+    this.router.navigateByUrl(`/samples/create`);
   }
 };

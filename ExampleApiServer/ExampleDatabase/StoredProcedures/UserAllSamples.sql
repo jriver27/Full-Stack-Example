@@ -5,7 +5,7 @@
 -- 8/4/2017 | JAVIER RIVERA | Initial Creation
 ------------------------------------------------------------------------------
   
-ALTER PROCEDURE [dbo].[UserAllSamples]
+CREATE PROCEDURE [dbo].[UserAllSamples]
 	@userId int = 0
 AS
 

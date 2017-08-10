@@ -1,51 +1,50 @@
-<div class="page-content">
-  <div *ngIf="sample">
-    <h2>Sample Details</h2>
-    <div class="sample-detail-wrapper">
-      <div>
-        <label>SampleId: </label>
-        <div>{{sample.SampleId}}</div>
-      </div>
-      <div>
-        <label>Barcode: </label>
-        <div *ngIf="editMode">
-          <div class="ui-inputgroup">
-            <span class="ui-inputgroup-addon"><i class="fa fa-barcode"></i></span>
-            <input type="text" [(ngModel)]="selectedBarcode" pInputText placeholder="barcode">
-          </div>
-        </div>
-        <div *ngIf="!editMode">
-          {{sample.Barcode}}
+<h2>Sample Details</h2>
+<div style="text-align: right; padding: 0 10px 9px 9px;"><button pButton (click)="goBack()" type="button" iconPos="left" icon="fa-arrow-left" label="Back"></button></div>
+<div *ngIf="sample">
+  <div class="sample-detail-wrapper">
+    <div>
+      <label>SampleId: </label>
+      <div>{{sample.SampleId}}</div>
+    </div>
+    <div>
+      <label>Barcode: </label>
+      <div *ngIf="editMode">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-barcode"></i></span>
+          <input type="text" [(ngModel)]="selectedBarcode" pInputText placeholder="barcode">
         </div>
       </div>
-      <div>
-        <label>Created By: </label>
-        <div *ngIf="editMode">
-          <p-dropdown [options]="users" [(ngModel)]="selectedUser"></p-dropdown>
-        </div>
-        <div *ngIf="!editMode">
-          <div>{{sample.FirstName}} {{sample.LastName}}</div>
-        </div>
+      <div *ngIf="!editMode">
+        {{sample.Barcode}}
       </div>
-      <div>
-        <label>Status: </label>
-        <div *ngIf="editMode">
-          <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus"></p-dropdown>
-        </div>
-        <div *ngIf="!editMode">
-          {{sample.Status}}
-        </div>
+    </div>
+    <div>
+      <label>Created By: </label>
+      <div *ngIf="editMode">
+        <p-dropdown [options]="users" [(ngModel)]="selectedUser"></p-dropdown>
+      </div>
+      <div *ngIf="!editMode">
+        <div>{{sample.FirstName}} {{sample.LastName}}</div>
+      </div>
+    </div>
+    <div>
+      <label>Status: </label>
+      <div *ngIf="editMode">
+        <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus"></p-dropdown>
+      </div>
+      <div *ngIf="!editMode">
+        {{sample.Status}}
       </div>
     </div>
   </div>
-  <div class="control-wrapper">
-    <div *ngIf="!editMode">
-      <button pButton type="button" (click)="edit($event)" icon="fa-pencil" label="edit"></button>
-    </div>
-    <div *ngIf="editMode">
-      <button pButton type="button" (click)="save($event)" icon="fa-save" label="Save"></button>
-      <button pButton type="button" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
-      <div class="control-delete"><button pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
-    </div>
+</div>
+<div class="control-wrapper">
+  <div *ngIf="!editMode">
+    <button pButton type="button" (click)="edit($event)" icon="fa-pencil" label="edit"></button>
+  </div>
+  <div *ngIf="editMode">
+    <button pButton type="button" class="ui-button-success" (click)="save($event)" icon="fa-save" label="Save"></button>
+    <button pButton type="button" class="ui-button-warning" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
+    <div class="control-delete"><button class="ui-button-danger" pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
   </div>
 </div>

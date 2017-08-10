@@ -20,4 +20,3 @@ AS
 	FROM [dbo].Samples S
 	RIGHT JOIN Users U on U.UserId = S.CreatedBy 
 	RIGHT JOIN Statuses ST on ST.StatusId = S.StatusId
-RETURN 0

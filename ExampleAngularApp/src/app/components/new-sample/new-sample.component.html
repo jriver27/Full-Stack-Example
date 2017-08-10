@@ -1,0 +1,30 @@
+<h3>Sample Creation Page</h3>
+<p-messages class="ui-messages-success" [(value)]="msgs"></p-messages>
+<h4>Enter the Sample Information:</h4>
+<section class="new-sample-form">
+  <div class="new-sample-user-dropdown">
+    <div><label for="userDropdown">Select User</label>
+      <p-dropdown id=userDropdown [options]="selectUsers" (onChange)="formChanged()" [(ngModel)]="selectedUser"></p-dropdown>
+    </div>
+  </div>
+  <div class="new-sample-status-dropdown">
+    <div><label for="statusDropdown">Select Status</label>
+      <p-dropdown id="statusDropdown" [options]="selectStatuses" (onChange)="formChanged()" [(ngModel)]="selectedStatus"></p-dropdown>
+    </div>
+  </div>
+  <div class="new-sample-barcode-input">
+    <div><label for="barcodeEntry">Enter barcode</label>
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-barcode"></i></span>
+        <input numbersOnly="true" id="barcodeEntry" type="text" [(ngModel)]="selectedBarcode" (change)="formChanged()" pInputText
+          placeholder="barcode">
+      </div>
+    </div>
+  </div>
+</section>
+<div class="newSampleSubmit" *ngIf="isFormComplete">
+  <div class="control-wrapper">
+    <button pButton type="button" class="ui-button-success" (click)="submit($event)" icon="fa-save" label="submit"></button>
+    <button pButton type="button" class="ui-button-warning" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
+  </div>
+</div>

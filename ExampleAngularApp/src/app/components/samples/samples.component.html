@@ -1,22 +1,19 @@
-<div class="page-content">
-  <h3>All Samples</h3>
-  <div *ngIf="samples">
-    <span>Current number of samples: {{samples.length}}</span>
+<h3>All Samples</h3>
+<button pButton type="button" icon="fa-plus" class="ui-button-success" iconPos="left" label="Create Sample" (click)="createSample()"></button>
+<div *ngIf="samples" style="padding-top: 3px;">
+  <span>Current number of samples: {{samples.length}}</span>
+</div>
+<div *ngIf="!samples">
+  <span>There are currently no samples available.</span>
+</div>
+<div *ngIf="samples">
+  <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
   </div>
-  <div *ngIf="!samples">
-    <span>There are currently no samples available.</span>
-  </div>
-  <div *ngIf="samples">
-    <ul class="samples">
-      <li *ngFor="let sample of samples" [class.selected]="sample === selectedSample" (click)="onSelect(sample)">
-        <div class="sample-list-container">
-          <div class="badge left">{{sample.SampleId}}</div>
-          <div class="center">{{sample.FirstName}} {{sample.LastName}}</div>
-          <div class="right" style="padding-right: 10px;"><span>{{sample.Status}}</span></div>
-          <div class="clear"></div>
-          <a [routerLink]="['/details', sample]"></a>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <p-dataTable selectionMode="single" [(selection)]="selectedSample" (onRowSelect)="handleRowSelect($event)" resizableColumns="true"
+    [globalFilter]="gb" [value]="samples" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [stacked]="stacked"
+    #dt>
+    <p-column *ngFor="let col of tableColumns" [filter]="true" [field]="col.field" [header]="col.header"></p-column>
+  </p-dataTable>
 </div>

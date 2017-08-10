@@ -118,14 +118,15 @@ namespace ExampleApiServer.Controllers
 		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		//      // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost("create")]
-		public async Task<IActionResult> Create([Bind("SampleId, StatusId, Barcode, CreatedAt, CreatedBy")] Samples samples)
+		public async Task<IActionResult> Create([FromBody] Samples samples)
 		{
 			try
 			{
 				if (ModelState.IsValid)
 				{
-					var result = db.Execute(@"INSERT INTO [dbo].[Samples]([SampleId], [StatusId], [Barcode], [CreatedAt], [CreatedBy])
-						VALUES(@SampleId, @StatusId, @Barcode, @CreatedAt, @CreatedBy)", samples);
+
+					var result = db.Query("CreateSample", 
+						new { statusId = samples.StatusId, barcode = samples.Barcode, createdBy = samples.CreatedBy}, commandType: CommandType.StoredProcedure);
 
 					return Json(result);
 				}
@@ -179,20 +180,20 @@ namespace ExampleApiServer.Controllers
 		//          return View(samples);
 		//      }
 
-		//      // POST: Samples/Delete/5
-		//      [HttpPost, ActionName("Delete")]
-		//      [ValidateAntiForgeryToken]
-		//      public async Task<IActionResult> DeleteConfirmed(int id)
-		//      {
-		//          var samples = await _context.Samples.SingleOrDefaultAsync(m => m.SampleId == id);
-		//          _context.Samples.Remove(samples);
-		//          await _context.SaveChangesAsync();
-		//          return RedirectToAction("Index");
-		//      }
+		// POST: Samples/Delete/
+		[HttpDelete]
+		public async Task<IActionResult> Delete([FromBody] Samples sample)
+		{
+			if (sample != null)
+			{
 
-		//      private bool SamplesExists(int id)
-		//      {
-		//          return _context.Samples.Any(e => e.SampleId == id);
-		//      }
+				var success = db.Query("DELETE FROM SAMPLES WHERE Samples.SAMPLEID = " + sample.SampleId.ToString());
+
+				return Json(success);
+			}
+
+			return NotFound();
+		}
+
 	}
 }

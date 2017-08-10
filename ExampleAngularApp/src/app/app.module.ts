@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Prime Imports
-import { SharedModule, DataTableModule, TabMenuModule, DataListModule, ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
+import { SharedModule, DataTableModule, TabMenuModule } from 'primeng/primeng';
+import { DataListModule, MessagesModule, ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
 import '../../node_modules/primeng/resources/primeng.min.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
@@ -22,6 +23,8 @@ import { SampleService } from './services/sample.service';
 import { UserService } from 'app/services/user.service';
 import { UsersComponent } from 'app/components/users/users.component';
 import { StatusService } from 'app/services/status.service';
+import { NewSampleComponent } from 'app/components/new-sample/new-sample.component';
+import { NumbersOnlyDirective } from '../directives/numbersOnly.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { StatusService } from 'app/services/status.service';
     SampleDetailComponent,
     DashboardComponent,
     UserDetailComponent,
-    UsersComponent
+    UsersComponent,
+    NewSampleComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,10 @@ import { StatusService } from 'app/services/status.service';
       {
         path: 'user/:id',
         component: UserDetailComponent
+      },
+      {
+        path: 'samples/create',
+        component: NewSampleComponent
       }]),
     TabMenuModule,
     TabViewModule,
@@ -71,7 +80,8 @@ import { StatusService } from 'app/services/status.service';
     ButtonModule,
     DropdownModule,
     InputTextModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MessagesModule
   ],
   providers: [SampleService, UserService, StatusService],
   bootstrap: [AppComponent]

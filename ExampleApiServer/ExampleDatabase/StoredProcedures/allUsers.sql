@@ -5,7 +5,7 @@
 -- 8/4/2017 | JAVIER RIVERA | Initial Creation
 ------------------------------------------------------------------------------
 
-CREATE PROCEDURE [dbo].[allUsers]
+CREATE PROCEDURE [dbo].[AllUsers]
 
 AS
 
