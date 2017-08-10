@@ -118,14 +118,15 @@ namespace ExampleApiServer.Controllers
 		//      // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		//      // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost("create")]
-		public async Task<IActionResult> Create([Bind("SampleId, StatusId, Barcode, CreatedAt, CreatedBy")] Samples samples)
+		public async Task<IActionResult> Create([FromBody] Samples samples)
 		{
 			try
 			{
 				if (ModelState.IsValid)
 				{
-					var result = db.Execute(@"INSERT INTO [dbo].[Samples]([SampleId], [StatusId], [Barcode], [CreatedAt], [CreatedBy])
-						VALUES(@SampleId, @StatusId, @Barcode, @CreatedAt, @CreatedBy)", samples);
+
+					var result = db.Query("CreateSample", 
+						new { statusId = samples.StatusId, barcode = samples.Barcode, createdBy = samples.CreatedBy}, commandType: CommandType.StoredProcedure);
 
 					return Json(result);
 				}

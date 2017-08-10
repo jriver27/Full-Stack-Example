@@ -43,9 +43,9 @@
       <button pButton type="button" (click)="edit($event)" icon="fa-pencil" label="edit"></button>
     </div>
     <div *ngIf="editMode">
-      <button pButton type="button" (click)="save($event)" icon="fa-save" label="Save"></button>
-      <button pButton type="button" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
-      <div class="control-delete"><button pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
+      <button pButton type="button" class="ui-button-success" (click)="save($event)" icon="fa-save" label="Save"></button>
+      <button pButton type="button" class="ui-button-warning" (click)="cancel($event)" icon="fa-ban" label="Cancel"></button>
+      <div class="control-delete"><button class="ui-button-danger" pButton type="button" (click)="delete($event)" icon="fa-times" label="Delete"></button></div>
     </div>
   </div>
 </div>

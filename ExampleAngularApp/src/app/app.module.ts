@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Prime Imports
 import { SharedModule, DataTableModule, TabMenuModule } from 'primeng/primeng';
-import { DataListModule, ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
+import { DataListModule, MessagesModule, ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
 import '../../node_modules/primeng/resources/primeng.min.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import { TabViewModule } from 'primeng/components/tabview/tabview';
@@ -24,6 +24,7 @@ import { UserService } from 'app/services/user.service';
 import { UsersComponent } from 'app/components/users/users.component';
 import { StatusService } from 'app/services/status.service';
 import { NewSampleComponent } from 'app/components/new-sample/new-sample.component';
+import { NumbersOnlyDirective } from '../directives/numbersOnly.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NewSampleComponent } from 'app/components/new-sample/new-sample.compone
     DashboardComponent,
     UserDetailComponent,
     UsersComponent,
-    NewSampleComponent
+    NewSampleComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ import { NewSampleComponent } from 'app/components/new-sample/new-sample.compone
     ButtonModule,
     DropdownModule,
     InputTextModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MessagesModule
   ],
   providers: [SampleService, UserService, StatusService],
   bootstrap: [AppComponent]

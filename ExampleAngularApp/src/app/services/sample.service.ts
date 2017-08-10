@@ -27,7 +27,17 @@ export class SampleService {
         return new Promise<Sample>((resolve, reject) => {
             this.http
                 .post('http://localhost:49909/api/samples/edit', sample)
-                .map(res => res.json());
+                .map(res => res.json())
+                .subscribe((data) => resolve(data));
         });
     };
+
+    createSample(sample: Sample): Promise<Sample> {
+        return new Promise<Sample>((resolve, reject) => {
+            this.http
+                .post('http://localhost:49909/api/samples/create', sample)
+                .map(res => res.json())
+                .subscribe((data) => resolve(data));
+        });
+    }
 }
