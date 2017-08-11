@@ -1,32 +1,52 @@
-﻿------------------------------------------------------------
+﻿/*
+Post-Deployment Script Template							
+--------------------------------------------------------------------------------------
+ This file contains SQL statements that will be appended to the build script.		
+ Use SQLCMD syntax to include a file in the post-deployment script.			
+ Example:      :r .\myfile.sql								
+ Use SQLCMD syntax to reference a variable in the post-deployment script.		
+ Example:      :setvar TableName MyTable							
+               SELECT * FROM [$(TableName)]					
+--------------------------------------------------------------------------------------
+*/
+------------------------------------------------------------
 -- REMOVE ALL REFERENCES TO THE TABLES ON EACH BUILD
 ------------------------------------------------------------
+BEGIN TRANSACTION DropTables;
+
+
 IF OBJECT_ID('dbo.Samples', 'U') IS NOT NULL 
-  DROP TABLE dbo.Samples;
+	DROP TABLE dbo.Samples;
+
 
 IF OBJECT_ID('dbo.Statuses', 'U') IS NOT NULL 
-  DROP TABLE dbo.Statuses;
-
+	DROP TABLE dbo.Statuses;
+	
 IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL 
-  DROP TABLE dbo.Users;
+	DROP TABLE dbo.Users;
 
+
+COMMIT TRANSACTION DropTables
+GO
 
 ------------------------------------------------------------
 -- CREATING TABLES FOR THE DEMO APP
 ------------------------------------------------------------
+BEGIN TRANSACTION CreateTables
+GO
 CREATE TABLE [dbo].[Statuses]
 (
 	[StatusId] INT NOT NULL PRIMARY KEY, 
     [Status] VARCHAR(50) NULL
 )
-
+GO
 CREATE TABLE [dbo].[Users]
 (
 	[UserId] INT NOT NULL PRIMARY KEY, 
     [FirstName] VARCHAR(15) NULL, 
     [LastName] VARCHAR(15) NULL
 )
-
+GO
 CREATE TABLE [dbo].[Samples]
 (
 	[SampleId] INT NOT NULL PRIMARY KEY IDENTITY, 
@@ -35,14 +55,21 @@ CREATE TABLE [dbo].[Samples]
     [CreatedBy] INT FOREIGN KEY REFERENCES Users(UserId),
     [StatusId] INT FOREIGN KEY REFERENCES Statuses(StatusId)
 )
+GO
 
+COMMIT TRANSACTION CreateTables
+GO
 ------------------------------------------------------------
 -- CREATE THE DEMO PROCEDURES
 ------------------------------------------------------------
+BEGIN TRANSACTION CreateProcedures
+
+GO
 -- ALL USERS
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.AllUsers'))
-   exec('CREATE PROCEDURE [dbo].[AllUsers] AS BEGIN SET NOCOUNT ON; END')
-GO
+   exec('CREATE PROCEDURE [dbo].[AllUsers] AS BEGIN SET NOCOUNT ON; END') 
+Go
+
 ALTER PROCEDURE [dbo].[AllUsers]
 AS
 SELECT U.UserId, U.FirstName, U.LastName,
@@ -55,6 +82,7 @@ SELECT U.UserId, U.FirstName, U.LastName,
     AS SampleIds
 FROM Users U
 
+GO
 -- USER ALL SAMPLES
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.UserAllSamples'))
    exec('CREATE PROCEDURE [dbo].[UserAllSamples] AS BEGIN SET NOCOUNT ON; END')
@@ -99,7 +127,6 @@ AS
 	FROM [dbo].Samples S
 	RIGHT JOIN Users U on U.UserId = S.CreatedBy 
 	RIGHT JOIN Statuses ST on ST.StatusId = S.StatusId
-
 GO
 
 -- EditSample
@@ -142,7 +169,6 @@ ALTER PROCEDURE [dbo].[CreateSample]
 	@CreatedBy smallInt,
 	@statusId smallInt
 AS
-
 	DECLARE @date DATE = GETDATE()
 
 	INSERT INTO [dbo].[Samples] ([StatusId], [Barcode], [CreatedAt], [CreatedBy])
@@ -161,10 +187,14 @@ AS
 		LEFT JOIN Samples as s on u.UserId = s.CreatedBy
 		LEFT JOIN Statuses AS st on st.StatusId = s.StatusId
 	WHERE S.SampleId = @@IDENTITY
+GO
+COMMIT TRANSACTION CreateProcedures
+GO
 
 ------------------------------------------------------------
 -- INSERT DEMO DATA 
 ------------------------------------------------------------
+BEGIN TRANSACTION SeedData
 INSERT INTO dbo.Statuses(StatusId, Status)
  VALUES (0, N'Received'),
  (1, N'Accessioning'),
@@ -286,3 +316,4 @@ VALUES (N'129076', N'2015-01-02', 6, 3),
     (N'767548', N'2016-02-09', 7, 2),
     (N'363492', N'2015-12-18', 6, 1),
     (N'541884', N'2015-07-07', 10, 1);
+COMMIT TRANSACTION CreateTables

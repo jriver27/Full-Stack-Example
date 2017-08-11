@@ -69,9 +69,12 @@
     <Build Include="StoredProcedures\GetAllSamplesWithUserAndStatusInfo.sql" />
     <Build Include="StoredProcedures\EditSample.sql" />
     <Build Include="StoredProcedures\CreateSample.sql" />
-    <PreDeploy Include="FillDemoData.sql" />
+    <None Include="FillDemoData.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ExampleDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="SeedData.PostDeployment.sql" />
   </ItemGroup>
 </Project>
